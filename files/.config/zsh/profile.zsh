@@ -26,18 +26,28 @@ export FZF_DEFAULT_COMMAND='rg --files --ignore-case --hidden -g "!{.git,node_mo
 # export PATH=$HOME/Android/Sdk/tools:$PATH
 
 # Java 
-# export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel ${_JAVA_OPTIONS}"
+export _JAVA_OPTIONS="\
+-Dawt.useSystemAAFontSettings=on \
+-Dswing.aatext=true \
+-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel \
+-Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel \
+${_JAVA_OPTIONS}"
+
+# Java options disabled
+# -Dsun.java2d.uiScale.enabled=true \
+# -DGDK_SCALE=1 \
+
 # export JAVA_HOME=/usr/lib/jvm/default
 # export JAVA_FONTS=/usr/share/fonts/TTF
 
 # fix rider HiDPI
-export _JAVA_OPTIONS="-Dsun.java2d.uiScale.enabled=true"
+# export _JAVA_OPTIONS="-Dsun.java2d.uiScale.enabled=true ${_JAVA_OPTIONS}"
 
 # AWS
 export AWS_SDK_LOAD_CONFIG=1
 export AWS_PROFILE=wallex-dev
 
-export GTK_THEME=Colloid-Dark-Compact
+export GTK_THEME=Colloid-Dark-Nord
 
 export TMPDIR=/tmp
 
@@ -52,7 +62,7 @@ export MOZ_ENABLE_WAYLAND=1
 export EGL_PLATFORM=wayland
 
 # Added by LM Studio CLI (lms)
-export PATH="$PATH:/home/yudi/.lmstudio/bin"
+export PATH="$HOME/.lmstudio/bin:$PATH"
 # End of LM Studio CLI section
 
 # Mason.nvim
