@@ -45,7 +45,6 @@ ${_JAVA_OPTIONS}"
 
 # AWS
 export AWS_SDK_LOAD_CONFIG=1
-export AWS_PROFILE=wallex-dev
 
 export GTK_THEME=Colloid-Dark-Nord
 
@@ -67,3 +66,6 @@ export PATH="$HOME/.lmstudio/bin:$PATH"
 
 # Mason.nvim
 export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+
+# davinci-resolve scaling fix
+export QT_AUTO_SCREEN_SCALE_FACTOR=1
