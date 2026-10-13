@@ -3,5 +3,6 @@ vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
   pattern = "*.conf",
   callback = function()
     vim.bo.filetype = "tmux"
+    vim.bo.syntax = "tmux"
   end,
 })

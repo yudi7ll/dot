@@ -1,18 +1,13 @@
 #!/bin/bash
-# Check if session name was manually set
 CURRENT_SESSION=$(tmux display-message -p '#S' 2>/dev/null)
 SESSION_RENAME_FLAG="/tmp/tmux_session_renamed_${CURRENT_SESSION}"
 
-# Check if we've manually renamed this session before
 if [[ "$(tmux show-option -qv -t "$CURRENT_SESSION:" @manual_session_renamed 2>/dev/null)" == "1" || -f "$SESSION_RENAME_FLAG" ]]; then
     # Session was manually renamed, don't auto-rename
     exit 0
 else
     # Session was not manually renamed, proceed with auto-rename
     PANE_PATH=$(tmux list-panes -s -t "$CURRENT_SESSION:" -F '#{window_index}:#{pane_index}:#{pane_current_path}' 2>/dev/null | sort -t: -k1,1n -k2,2n | sed -n '1s/^[^:]*:[^:]*://p')
-    # Replace dots with underscores: tmux treats '.' as window/pane separator in
-    # targets (e.g. `switch-client -t .claude` fails), so dot-named sessions are
-    # unreachable. Matches sesh's convertToValidName ('.claude' -> '_claude').
     BASE_NAME=$(basename "$PANE_PATH" | tr '.' '_')
     SESSION_NAME="$BASE_NAME"
     COUNT=2
