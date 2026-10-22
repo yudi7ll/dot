@@ -9,6 +9,23 @@ else
     # Session was not manually renamed, proceed with auto-rename
     PANE_PATH=$(tmux list-panes -s -t "$CURRENT_SESSION:" -F '#{window_index}:#{pane_index}:#{pane_current_path}' 2>/dev/null | sort -t: -k1,1n -k2,2n | sed -n '1s/^[^:]*:[^:]*://p')
     BASE_NAME=$(basename "$PANE_PATH" | tr '.' '_')
+
+    if [[ -n "$PANE_PATH" ]]; then
+        PROJECT_ROOT=$(git -C "$PANE_PATH" rev-parse --show-toplevel 2>/dev/null)
+        if [[ -n "$PROJECT_ROOT" ]]; then
+            PROJECT_PATH=$(git -C "$PANE_PATH" rev-parse --show-prefix 2>/dev/null)
+            PROJECT_NAME=$(basename "$PROJECT_ROOT")
+
+            if [[ -n "$PROJECT_PATH" ]]; then
+                BASE_NAME="$PROJECT_NAME/${PROJECT_PATH%/}"
+            else
+                BASE_NAME="$PROJECT_NAME"
+            fi
+
+            BASE_NAME=$(printf '%s' "$BASE_NAME" | tr '.' '_')
+        fi
+    fi
+
     SESSION_NAME="$BASE_NAME"
     COUNT=2
 
