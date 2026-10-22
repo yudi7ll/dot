@@ -49,7 +49,6 @@
     status                  # exit code of the last command
     command_execution_time  # duration of the last command
     background_jobs         # presence of background jobs
-    screen                  # GNU Screen session
     direnv                  # direnv status (https://direnv.net/)
     # asdf                    # asdf version manager (https://github.com/asdf-vm/asdf)
     virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
@@ -1553,25 +1552,6 @@
   # POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS. It displays an icon and orange text greeting the user.
   #
   # Type `p10k help segment` for documentation and a more sophisticated example.
-  function prompt_screen() {
-    if [[ -n $STY ]]; then
-      local session=${STY%%.*}
-      p10k segment -f 246 -i '󱂬' -t "${session:-screen}"
-      return
-    fi
-
-    command -v screen &>/dev/null || return
-    local count
-    count=$(screen -ls 2>/dev/null | grep -c '[0-9]\+\.')
-    (( count > 0 )) || return
-    p10k segment -f 245 -i '󱂬' -t "${count} bg"
-  }
-
-  function instant_prompt_screen() {
-    [[ -n $STY ]] || return
-    prompt_screen
-  }
-
   function prompt_example() {
     p10k segment -f 208 -i '⭐' -t 'hello, %n'
   }

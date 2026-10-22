@@ -26,27 +26,15 @@ export FZF_DEFAULT_COMMAND='rg --files --ignore-case --hidden -g "!{.git,node_mo
 # export PATH=$HOME/Android/Sdk/tools:$PATH
 
 # Java 
-export _JAVA_OPTIONS="\
--Dawt.useSystemAAFontSettings=on \
--Dswing.aatext=true \
--Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel \
--Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel \
-${_JAVA_OPTIONS}"
-
-# Java options disabled
-# -Dsun.java2d.uiScale.enabled=true \
-# -DGDK_SCALE=1 \
-
+# export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel ${_JAVA_OPTIONS}"
 # export JAVA_HOME=/usr/lib/jvm/default
 # export JAVA_FONTS=/usr/share/fonts/TTF
 
-# fix rider HiDPI
-# export _JAVA_OPTIONS="-Dsun.java2d.uiScale.enabled=true ${_JAVA_OPTIONS}"
-
 # AWS
 export AWS_SDK_LOAD_CONFIG=1
+export AWS_PROFILE=wallex-dev
 
-export GTK_THEME=Colloid-Dark-Nord
+export GTK_THEME=Colloid-Dark
 
 export TMPDIR=/tmp
 
@@ -59,13 +47,3 @@ export OLLAMA_API_BASE=http://localhost:7869
 export LIBVA_DRIVER_NAME=nvidia
 export MOZ_ENABLE_WAYLAND=1
 export EGL_PLATFORM=wayland
-
-# Added by LM Studio CLI (lms)
-export PATH="$HOME/.lmstudio/bin:$PATH"
-# End of LM Studio CLI section
-
-# Mason.nvim
-export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
-
-# davinci-resolve scaling fix
-export QT_AUTO_SCREEN_SCALE_FACTOR=1

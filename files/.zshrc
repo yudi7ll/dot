@@ -76,9 +76,16 @@ ZSH_CUSTOM=$HOME/.config/oh-my-zsh
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git encode64 sudo fzf safe-paste docker colored-man-pages extract universalarchive urltools aliases gitignore systemd z zsh-syntax-highlighting)
+plugins=(git encode64 sudo fzf safe-paste docker colored-man-pages extract universalarchive urltools)
 
 source $ZSH/oh-my-zsh.sh
+
+# zsh-syntax-highlighting — dynamic path per OS (brew on Mac, system on Linux)
+if [[ -f "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+  source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+elif [[ -f "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+  source "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
 
 # Kitty Terminal
 if command -v kitty &>/dev/null; then
@@ -120,19 +127,11 @@ PROFILE=$HOME/.config/zsh/profile.zsh
 ALIASES=$HOME/.config/zsh/aliases.zsh
 [[ -f $ALIASES ]] && source $ALIASES
 
-# functions
-FUNCTIONS=$HOME/.config/zsh/functions.zsh
-[[ -f $FUNCTIONS ]] && source $FUNCTIONS
-
 # OS detection
 if [[ "$(uname)" == "Darwin" ]]; then
   export PLATFORM="macos"
 elif [[ "$(uname)" == "Linux" ]]; then
   export PLATFORM="linux"
-fi
-
-if [[ -f ~/.zshenv ]]; then
-  source ~/.zshenv
 fi
 
 # workaround for neovim crash: too many open files
@@ -146,9 +145,7 @@ export PYENV_ROOT="$HOME/.pyenv"
 if [[ -d $PYENV_ROOT/bin ]]; then
   export PATH="$PYENV_ROOT/bin:$PATH"
 fi
-if command -v pyenv &>/dev/null; then
-  eval "$(pyenv init - zsh)"
-fi
+eval "$(pyenv init - zsh)"
 
 # Add .NET Core SDK tools
 export PATH="$HOME/.dotnet/tools:$PATH"
@@ -159,31 +156,40 @@ autoload -Uz compinit
 compinit
 # End of Docker CLI completions
 
-# Claude Code: Auto-switch between APIs based on directory
+# autoload .nvmrc using n
+# autoload -U add-zsh-hook                                                                                                                                     
+# _use_nvmrc() {
+#   if [[ -f .nvmrc ]]; then
+#     local needed=$(cat .nvmrc)
+#     local current=$(node --version | tr -d 'v')
+#     [[ "$current" == "$needed" ]] && return
+#     n "$needed" 2>/dev/null >/dev/null
+#   fi
+# }                                                                                                                                                            
+# add-zsh-hook chpwd _use_nvmrc                                                                                                                                
+# _use_nvmrc  # trigger on initial cd                                                                                                                          
+# end of the autoload .nvmrc using n
+
+# Claude Code: Auto-switch between Wallex and Personal APIs
 # claude() {
-#   local use_wallex=true
-#   local args=()
-
-#   for arg in "$@"; do
-#     if [[ "$arg" == "--no-wallex" ]]; then
-#       use_wallex=false
-#     else
-#       args+=("$arg")
-#     fi
-#   done
-
-#   if [[ "$PWD" == *[Ww]allex* && "$use_wallex" == true ]]; then
+#   if [[ "$PWD" == *[Ww]allex* ]]; then
 #     echo "--- Wallex API Activated ---"
-#     command claude --settings ~/.claude/settings.wallex.json "${args[@]}"
+#     command claude --settings ~/.claude/settings.wallex.json "$@"
 #   else
-#     echo "--- OpenRouter API Activated ---"
-#     command claude "${args[@]}"
+#     echo "--- Personal API Activated ---"
+#     command claude "$@"
 #   fi
 # }
-export PATH="/home/yudi/.config/herd-lite/bin:$PATH"
-export PHP_INI_SCAN_DIR="/home/yudi/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 
 # Added by Antigravity CLI installer
 export PATH="/home/yudi/.local/bin:$PATH"
 
 eval "$(zoxide init zsh)"
+
+
+# bun completions
+[ -s "/Users/yudi/.bun/_bun" ] && source "/Users/yudi/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

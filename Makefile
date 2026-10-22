@@ -41,13 +41,11 @@ install:
 	stow --dir=$(STOW_DIR) --target=$(HOME) --verbose .
 	@echo -e "$(GREEN)All dotfiles installed successfully!$(NC)"
 	@echo -e ""
-	@echo -e "$(BLUE)Updating submodules to latest versions...$(NC)"
-	make submodule-update
 
-# Update all dotfiles (restow) and submodules
+# Restow Mac dotfiles using the pinned submodule revisions
 update:
 	@echo -e "$(BLUE)Updating submodules...$(NC)"
-	git submodule update --remote --merge
+	git submodule update --init --recursive
 	@echo -e "$(GREEN)Submodules updated successfully!$(NC)"
 	@echo -e "$(BLUE)Updating all dotfiles...$(NC)"
 	stow --dir=$(STOW_DIR) --target=$(HOME) --restow .
