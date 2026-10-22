@@ -26,10 +26,10 @@ help:
 	@echo "  make help               Show this help message"
 	@echo ""
 	@echo "For individual packages, use stow directly:"
-	@echo "  stow --dir=files --target=\$$HOME --verbose .zshrc .p10k.zsh .config/zsh"
-	@echo "  stow --dir=files --target=\$$HOME --verbose .config/wezterm"
-	@echo "  stow --dir=files --target=\$$HOME --verbose .config/kitty"
-	@echo "  stow --dir=files --target=\$$HOME --verbose .config/oh-my-zsh"
+	@echo "  stow --ignore='\.zwc$$' --dir=files --target=\$$HOME --verbose .zshrc .p10k.zsh .config/zsh"
+	@echo "  stow --ignore='\.zwc$$' --dir=files --target=\$$HOME --verbose .config/wezterm"
+	@echo "  stow --ignore='\.zwc$$' --dir=files --target=\$$HOME --verbose .config/kitty"
+	@echo "  stow --ignore='\.zwc$$' --dir=files --target=\$$HOME --verbose .config/oh-my-zsh"
 
 # Install all dotfiles
 install:
@@ -38,7 +38,7 @@ install:
 	@echo -e "$(GREEN)All submodules installed successfully!$(NC)"
 	@echo -e ""
 	@echo -e "$(BLUE)Installing all dotfiles...$(NC)"
-	stow --dir=$(STOW_DIR) --target=$(HOME) --verbose .
+	stow --ignore='\.zwc$$' --dir=$(STOW_DIR) --target=$(HOME) --verbose .
 	@echo -e "$(GREEN)All dotfiles installed successfully!$(NC)"
 	@echo -e ""
 
@@ -48,19 +48,19 @@ update:
 	git submodule update --init --recursive
 	@echo -e "$(GREEN)Submodules updated successfully!$(NC)"
 	@echo -e "$(BLUE)Updating all dotfiles...$(NC)"
-	stow --dir=$(STOW_DIR) --target=$(HOME) --restow .
+	stow --ignore='\.zwc$$' --dir=$(STOW_DIR) --target=$(HOME) --restow .
 	@echo -e "$(GREEN)All dotfiles updated successfully!$(NC)"
 
 # Clean all dotfiles (remove symlinks)
 clean:
 	@echo -e "$(BLUE)Removing all dotfiles symlinks...$(NC)"
-	stow --dir=$(STOW_DIR) --target=$(HOME) --delete .
+	stow --ignore='\.zwc$$' --dir=$(STOW_DIR) --target=$(HOME) --delete .
 	@echo -e "$(GREEN)All dotfiles symlinks removed!$(NC)"
 
 # Show stow status
 status:
 	@echo -e "$(BLUE)Current stow status:$(NC)"
-	stow --dir=$(STOW_DIR) --target=$(HOME) --verbose --no-folding .
+	stow --ignore='\.zwc$$' --dir=$(STOW_DIR) --target=$(HOME) --verbose --no-folding .
 
 # Check if stow is installed
 check-stow:
@@ -69,7 +69,7 @@ check-stow:
 # Bootstrap target to set up the environment
 bootstrap: check-stow
 	@echo -e "$(BLUE)Setting up dotfiles...$(NC)"
-	stow --dir=$(STOW_DIR) --target=$(HOME) --verbose .
+	stow --ignore='\.zwc$$' --dir=$(STOW_DIR) --target=$(HOME) --verbose .
 	@echo -e "$(GREEN)Dotfiles setup complete!$(NC)"
 
 # Initialize and clone all submodules
