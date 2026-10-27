@@ -7,3 +7,6 @@
 [submodule "files/.claude"]
 	path = files/.claude
 	url = git@github.com:yudi7ll/.claude
+[submodule "files/.codex"]
+	path = files/.codex
+	url = git@github.com:yudi7ll/dot-codex.git
