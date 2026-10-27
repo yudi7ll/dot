@@ -2,6 +2,7 @@ alias artisan="php artisan"
 [[ -f `which bat` ]] && alias cat=bat 
 [[ -f `which batcat` ]] && alias cat=batcat
 alias copy=clipcopy
+alias cx=codex
 alias df="dysk"
 alias icat="kitty +kitten icat"
 alias mocp="mocp -T green_theme"

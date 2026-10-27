@@ -186,4 +186,6 @@ export PHP_INI_SCAN_DIR="/home/yudi/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 # Added by Antigravity CLI installer
 export PATH="/home/yudi/.local/bin:$PATH"
 
-eval "$(zoxide init zsh)"
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init zsh)"
+fi
