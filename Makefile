@@ -3,6 +3,7 @@
 # Default directories
 DOTFILES_DIR := files
 STOW_DIR := files
+STOW_IGNORE := --ignore='.*\.zwc'
 
 # Colors for output
 RED := \033[0;31m
@@ -38,7 +39,7 @@ install:
 	@echo -e "$(GREEN)All submodules installed successfully!$(NC)"
 	@echo -e ""
 	@echo -e "$(BLUE)Installing all dotfiles...$(NC)"
-	stow --dir=$(STOW_DIR) --target=$(HOME) --verbose .
+	stow --dir=$(STOW_DIR) --target=$(HOME) --verbose $(STOW_IGNORE) .
 	@echo -e "$(GREEN)All dotfiles installed successfully!$(NC)"
 	@echo -e ""
 	@echo -e "$(BLUE)Updating submodules to latest versions...$(NC)"
@@ -50,19 +51,19 @@ update:
 	git submodule update --remote --merge
 	@echo -e "$(GREEN)Submodules updated successfully!$(NC)"
 	@echo -e "$(BLUE)Updating all dotfiles...$(NC)"
-	stow --dir=$(STOW_DIR) --target=$(HOME) --restow .
+	stow --dir=$(STOW_DIR) --target=$(HOME) --restow $(STOW_IGNORE) .
 	@echo -e "$(GREEN)All dotfiles updated successfully!$(NC)"
 
 # Clean all dotfiles (remove symlinks)
 clean:
 	@echo -e "$(BLUE)Removing all dotfiles symlinks...$(NC)"
-	stow --dir=$(STOW_DIR) --target=$(HOME) --delete .
+	stow --dir=$(STOW_DIR) --target=$(HOME) --delete $(STOW_IGNORE) .
 	@echo -e "$(GREEN)All dotfiles symlinks removed!$(NC)"
 
 # Show stow status
 status:
 	@echo -e "$(BLUE)Current stow status:$(NC)"
-	stow --dir=$(STOW_DIR) --target=$(HOME) --verbose --no-folding .
+	stow --dir=$(STOW_DIR) --target=$(HOME) --verbose --no-folding $(STOW_IGNORE) .
 
 # Check if stow is installed
 check-stow:
@@ -71,7 +72,7 @@ check-stow:
 # Bootstrap target to set up the environment
 bootstrap: check-stow
 	@echo -e "$(BLUE)Setting up dotfiles...$(NC)"
-	stow --dir=$(STOW_DIR) --target=$(HOME) --verbose .
+	stow --dir=$(STOW_DIR) --target=$(HOME) --verbose $(STOW_IGNORE) .
 	@echo -e "$(GREEN)Dotfiles setup complete!$(NC)"
 
 # Initialize and clone all submodules
