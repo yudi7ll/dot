@@ -13,6 +13,7 @@ alias occ='./bin/occ'
 alias open='xdg-open &>/dev/null'
 alias p="sudo pacman"
 alias paru="paru --removemake --sudoloop --bottomup --skipreview"
+alias pnd="pnpm dev"
 alias s="pacman -Ss"
 alias sail="./vendor/bin/sail"
 alias sc="systemctl"
