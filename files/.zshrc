@@ -159,27 +159,6 @@ autoload -Uz compinit
 compinit
 # End of Docker CLI completions
 
-# Claude Code: Auto-switch between APIs based on directory
-# claude() {
-#   local use_wallex=true
-#   local args=()
-
-#   for arg in "$@"; do
-#     if [[ "$arg" == "--no-wallex" ]]; then
-#       use_wallex=false
-#     else
-#       args+=("$arg")
-#     fi
-#   done
-
-#   if [[ "$PWD" == *[Ww]allex* && "$use_wallex" == true ]]; then
-#     echo "--- Wallex API Activated ---"
-#     command claude --settings ~/.claude/settings.wallex.json "${args[@]}"
-#   else
-#     echo "--- OpenRouter API Activated ---"
-#     command claude "${args[@]}"
-#   fi
-# }
 export PATH="/home/yudi/.config/herd-lite/bin:$PATH"
 export PHP_INI_SCAN_DIR="/home/yudi/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 
